@@ -1,35 +1,18 @@
-"""
-Instagram-Bot, Telegram Instagram Bot
-
-Copyright (C) 2021 Zaute Km
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Affero General Public License for more details.
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <https://www.gnu.org/licenses/>.
-"""
 from pyrogram.raw import functions, types
 from pyrogram import Client, idle
 from pyromod import listen
 from config import Config
-STATUS=Config.STATUS
 
-USER=Config.USER
+STATUS = Config.STATUS
+USER = Config.USER
+
 bot = Client(
     "InstaSessibon",
     bot_token=Config.BOT_TOKEN,
     api_id=Config.API_ID,
     api_hash=Config.API_HASH,
-    workers=50,
-    )
-
+    workers=50
+)
 
 async def main():
     async with bot:
@@ -40,7 +23,15 @@ async def main():
 if Config.INSTA_SESSIONFILE_ID:
     bot.run(main())
 
+@bot.on_message()
+async def message_handler(client, message):
+    await client.send_message(
+        chat_id=message.chat.id,
+        text="Hello, world!"
+    )
+
 bot.start()
+
 bot.send(
     functions.bots.SetBotCommands(
         commands=[
@@ -122,4 +113,3 @@ bot.send(
 
 idle()
 bot.stop()
-
