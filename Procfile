@@ -1,1 +1,1 @@
-worker: python3 main.py
+instagram: python3 main.py
